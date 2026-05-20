@@ -36,9 +36,12 @@ fun ScreenOffWidgetSettingsUI(
     vibrator: Vibrator?,
     prefs: SharedPreferences,
     modifier: Modifier = Modifier,
-    highlightSetting: String? = null
+    highlightSetting: String? = null,
+    onShowPermissionSheet: (Boolean) -> Unit,
+    onSetChildFeatureForPermissions: (String?) -> Unit
 ) {
     val context = LocalContext.current
+    val isShizukuPermissionGranted by viewModel.isShizukuPermissionGranted
 
     var selectedScreenOffMethod by remember {
         val name =
@@ -74,10 +77,15 @@ fun ScreenOffWidgetSettingsUI(
             ScreenOffMethodPicker(
                 selectedMethod = selectedScreenOffMethod,
                 onMethodSelected = { type ->
-                    prefs.edit {
-                        putString("screen_off_method", type.name)
+                    if (type == ScreenOffMethod.INPUT && !isShizukuPermissionGranted) {
+                        onSetChildFeatureForPermissions(context.getString(R.string.screen_off_widget_input_permission_id))
+                        onShowPermissionSheet(true)
+                    } else {
+                        prefs.edit {
+                            putString("screen_off_method", type.name)
+                        }
+                        selectedScreenOffMethod = type
                     }
-                    selectedScreenOffMethod = type
                 },
                 modifier = Modifier.highlight(highlightSetting == "screen_off_method_picker")
             )
@@ -113,4 +121,3 @@ fun ScreenOffWidgetSettingsUI(
         }
     }
 }
-
