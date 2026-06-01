@@ -35,6 +35,13 @@ Essential tools, mods and workarounds for Pixels and other Androids
 </p>
 
 <p align="center">
+<strong>Essentials got featured by Android Authority! 🎉</strong>
+</p>
+<p align="center">
+  <a href="https://www.androidauthority.com/good-lock-for-pixel-essentials-app-hands-on-3670994/"><img width="50%" alt="Frame 6" src="https://github.com/user-attachments/assets/5469b309-6929-4775-93c5-7ee2f0d57ba1" /></a>
+
+
+<p align="center">
 <strong>Essentials got featured by HowToMen! 🎉</strong>
 </p>
 <p align="center">
