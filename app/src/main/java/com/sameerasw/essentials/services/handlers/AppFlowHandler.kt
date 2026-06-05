@@ -76,6 +76,7 @@ class AppFlowHandler(
     private var lastLockRequestTime: Long = 0
     var currentPackage: String? = null
         private set
+    private var currentUsageStatsPackage: String? = null
 
     // App Automation State
     private val activeAppAutomationIds = mutableSetOf<String>()
@@ -96,25 +97,28 @@ class AppFlowHandler(
         val prefs = context.getSharedPreferences("essentials_prefs", Context.MODE_PRIVATE)
         val useUsageAccess = prefs.getBoolean("use_usage_access", false)
 
+        if (isFromUsageStats) {
+            val oldUsagePackage = currentUsageStatsPackage
+            currentUsageStatsPackage = packageName
+            if (oldUsagePackage != null && oldUsagePackage != packageName) {
+                checkShutUpRestore(oldUsagePackage, packageName)
+            }
+        }
+
         val oldPackage = currentPackage
-        currentPackage = packageName
-
-        if (oldPackage != null && oldPackage != packageName) {
-            lastLeaveTimes[oldPackage] = System.currentTimeMillis()
-        }
-
-        if (packageName != context.packageName && packageName != lockingPackage) {
-            lockingPackage = null
-        }
-
         if (isFromUsageStats == useUsageAccess) {
+            currentPackage = packageName
+            if (oldPackage != null && oldPackage != packageName) {
+                lastLeaveTimes[oldPackage] = System.currentTimeMillis()
+            }
+            if (packageName != context.packageName && packageName != lockingPackage) {
+                lockingPackage = null
+            }
             checkAppLock(packageName)
             checkHighlightNightLight(packageName)
             checkAppAutomations(packageName)
             checkGestureBarAutomation(packageName)
-            checkShutUpRestore(oldPackage, packageName)
         }
-
     }
 
     fun onAuthenticated(packageName: String) {

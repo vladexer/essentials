@@ -39,7 +39,7 @@ object ServiceUtils {
         val hasShutUpApps = shutUpConfigs.any { it.isEnabled }
 
         val shouldRun =
-            isUseUsageAccess && (isAppLockEnabled || isDynamicNightLightEnabled || isHideGestureBarOnLauncherEnabled || hasAppAutomations || hasShutUpApps)
+            (isUseUsageAccess && (isAppLockEnabled || isDynamicNightLightEnabled || isHideGestureBarOnLauncherEnabled || hasAppAutomations)) || hasShutUpApps
 
         val intent = Intent(context, AppDetectionService::class.java)
         if (shouldRun) {
