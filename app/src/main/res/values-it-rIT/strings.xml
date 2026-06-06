@@ -1396,10 +1396,10 @@
     <string name="btn_apply">Applica</string>
     <string name="add_video">Aggiungi video</string>
     <string name="custom_video">Video personalizzato</string>
-    <string name="about_desc_live_wallpaper">Set your favorite video as your home screen wallpaper. Choose between triggering the animation upon unlocking or simply whenever the screen turns on for a dynamic experience.</string>
+    <string name="about_desc_live_wallpaper">Imposta il tuo video preferito come sfondo della schermata home. Scegli se avviare l\'animazione allo sblocco o semplicemente ogni volta che lo schermo si accende, per un\'esperienza dinamica.</string>
     <!-- Shut-Up! Feature -->
     <string name="feat_shut_up_title">Shut-Up!</string>
-    <string name="feat_shut_up_desc">I know what I\'m doing</string>
+    <string name="feat_shut_up_desc">So quello che faccio</string>
     <string name="shut_up_description">Shut-Up! aggira le restrizioni delle app e controlla le opzioni sviluppatore, l\'accessibilità e il debug, nascondendoli dinamicamente quando avvii app sensibili.\n\nUsa le scorciatoie personalizzate per assicurarti che le impostazioni siano nascoste prima dell\'avvio dell\'app.</string>
     <string name="shut_up_select_apps_title">Seleziona app</string>
     <string name="shut_up_select_apps_desc">Scegli le app a cui applicare la logica di Shut-Up!</string>
@@ -1458,9 +1458,9 @@
     <!-- What's New -->
     <string name="whats_new_specs_title">Specifiche dispositivo rimosse</string>
     <string name="whats_new_specs_desc">Le specifiche inaccurate fornite da GSMArena sono stati rimosse per mantenere le informazioni sul dispositivo chiare, veloci e completamente affidabili.</string>
-    <string name="whats_new_apps_title">App Updates Migrated</string>
-    <string name="whats_new_apps_desc">The Apps tab is now fully integrated into the Your Android feature, making it easier to manage all your app updates in one cohesive hub.</string>
-    <string name="favorites_widget_name">Favorite Features</string>
-    <string name="favorites_widget_description">View and launch your favorite features at a glance.</string>
+    <string name="whats_new_apps_title">Aggiornamenti app migrati</string>
+    <string name="whats_new_apps_desc">La scheda App è ora completamente integrata nella funzione \'Il tuo Android\', rendendo più semplice la gestione di tutti gli aggiornamenti delle app in un unico hub centrale.</string>
+    <string name="favorites_widget_name">Funzionalità preferite</string>
+    <string name="favorites_widget_description">Visualizza e avvia le tue funzioni preferite in un attimo.</string>
     <string name="favorites_widget_empty_state">No favorite features pinned yet. Open the app to pin some!</string>
 </resources>
