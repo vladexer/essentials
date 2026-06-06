@@ -450,20 +450,20 @@
     <string name="feat_calendar_sync_title">Sincronizzazione del calendario</string>
     <string name="feat_calendar_sync_desc">Sincronizza il calendario del telefono con l\'orologio</string>
     <string name="feat_lock_from_watch_title">Blocca dall\'orologio</string>
-    <string name="feat_lock_from_watch_desc">Lock your phone remotely</string>
-    <string name="remote_lock_mode_title">Lock Mode</string>
-    <string name="remote_lock_mode_screen_off">Screen off</string>
-    <string name="remote_lock_mode_lock">Lock</string>
-    <string name="remote_lock_mode_admin_note">Using device admin lock will disable biometrics</string>
-    <string name="watch_connected_status">Connected</string>
-    <string name="watch_unknown_name">Unknown Watch</string>
+    <string name="feat_lock_from_watch_desc">Blocca il telefono da remoto</string>
+    <string name="remote_lock_mode_title">Modalità di blocco</string>
+    <string name="remote_lock_mode_screen_off">Spegni lo schermo</string>
+    <string name="remote_lock_mode_lock">Blocca</string>
+    <string name="remote_lock_mode_admin_note">L\'uso del blocco come amministratore del dispositivo disattiverà la biometria</string>
+    <string name="watch_connected_status">Connesso</string>
+    <string name="watch_unknown_name">Orologio sconosciuto</string>
     <string name="watermark_style_overlay">Sovrapposizione</string>
-    <string name="watermark_style_frame">Telaio</string>
+    <string name="watermark_style_frame">Cornice</string>
     <string name="watermark_show_brand">Marchio del dispositivo</string>
     <string name="watermark_show_exif">Dati EXIF</string>
     <string name="watermark_pick_image">Scegli immagine</string>
     <string name="watermark_save_success">Immagine salvata nella galleria</string>
-    <string name="action_share">Condividere</string>
+    <string name="action_share">Condividi</string>
     <string name="watermark_exif_settings">Impostazioni EXIF</string>
     <string name="watermark_exif_focal_length">Lunghezza focale</string>
     <string name="watermark_exif_aperture">Apertura</string>
@@ -477,7 +477,7 @@
     <string name="watermark_text_size_custom">Dimensione del testo</string>
     <string name="watermark_font_options">Dimensione carattere</string>
     <string name="watermark_custom_text">Testo personalizzato</string>
-    <string name="watermark_custom_text_hint">Inserisci il tuo testo...</string>
+    <string name="watermark_custom_text_hint">Inserisci il testo...</string>
     <string name="watermark_spacing">Spaziatura</string>
     <string name="watermark_border_width">Larghezza del bordo</string>
     <string name="watermark_border_corners">Angoli arrotondati</string>
@@ -503,29 +503,29 @@
     <string name="calendar_sync_no_calendars">Nessun calendario locale trovato</string>
     <string name="calendar_sync_sync_started">È iniziata la sincronizzazione del calendario</string>
     <!-- Search Settings -->
-    <string name="search_haptic_title">Feedback tattile del widget</string>
-    <string name="search_haptic_desc">Scegli il feedback tattile per i tocchi del widget</string>
+    <string name="search_haptic_title">Feedback aptico del widget</string>
+    <string name="search_haptic_desc">Scegli il feedback aptico per i tocchi del widget</string>
     <string name="search_smart_wifi_title">Wi-Fi intelligente</string>
-    <string name="search_smart_wifi_desc">Nascondi i dati mobili quando il WiFi è connesso</string>
+    <string name="search_smart_wifi_desc">Nascondi i dati mobili quando il Wi-Fi è connesso</string>
     <string name="search_smart_data_title">Dati intelligenti</string>
     <string name="search_smart_data_desc">Nascondi i dati mobili in determinate modalità</string>
     <string name="search_reset_icons_title">Ripristina tutte le icone</string>
     <string name="search_reset_icons_desc">Ripristina la visibilità dell\'icona della barra di stato sui valori predefiniti</string>
-    <string name="search_caffeinate_abort_screen_off_title">Interrompere Caffeinate con lo schermo spento</string>
-    <string name="search_caffeinate_abort_screen_off_desc">Disattiva automaticamente Caffeinate quando blocchi manualmente il dispositivo</string>
+    <string name="search_caffeinate_abort_screen_off_title">Interrompi Caffeina allo spegnimento dello schermo</string>
+    <string name="search_caffeinate_abort_screen_off_desc">Disattiva automaticamente Caffeina quando blocchi manualmente il dispositivo</string>
     <string name="search_lighting_style_title">Stile di illuminazione</string>
     <string name="search_lighting_style_desc">Scegli tra Tratto, Bagliore, Spinner e altro</string>
     <string name="search_corner_radius_title">Raggio dell\'angolo</string>
     <string name="search_corner_radius_desc">Regola il raggio dell\'angolo dell\'illuminazione delle notifiche</string>
     <string name="search_skip_silent_title">Salta le notifiche silenziose</string>
     <string name="search_skip_silent_desc">Non mostrare l\'illuminazione per le notifiche silenziose</string>
-    <string name="search_flashlight_pulse_title">Impulso della torcia</string>
-    <string name="search_flashlight_pulse_desc">Torcia a impulsi lenti per nuove notifiche</string>
-    <string name="search_only_facing_down_title">Solo a faccia in giù</string>
-    <string name="search_only_facing_down_desc">Torcia a impulsi solo quando il dispositivo è rivolto verso il basso</string>
+    <string name="search_flashlight_pulse_title">Flash della torcia</string>
+    <string name="search_flashlight_pulse_desc">Fai pulsare dolcemente la torcia per le nuove notifiche</string>
+    <string name="search_only_facing_down_title">Solo a schermo in giù</string>
+    <string name="search_only_facing_down_desc">Fai pulsare la torcia solo quando il dispositivo è a schermo in giù</string>
     <string name="snooze_no_channels_discovered">Nessun canale di sistema ancora scoperto. Appariranno qui una volta rilevati.</string>
-    <string name="search_qs_blur_title">Sfocatura dell\'interfaccia utente</string>
-    <string name="search_qs_blur_desc">Attiva/disattiva la sfocatura dell\'interfaccia utente a livello di sistema</string>
+    <string name="search_qs_blur_title">Sfocatura interfaccia</string>
+    <string name="search_qs_blur_desc">Attiva/disattiva la sfocatura dell\'interfaccia a livello di sistema</string>
     <string name="search_qs_bubbles_title">Bolle</string>
     <string name="search_qs_bubbles_desc">Abilita le bolle delle finestre mobili</string>
     <string name="search_qs_sensitive_title">Contenuti sensibili</string>
@@ -680,7 +680,7 @@
     <string name="welcome_developer_attribution">di sameerasw.com</string>
     <string name="action_lets_begin">Iniziamo</string>
     <string name="acknowledgement_title">Acknowledgement</string>
-    <string name="acknowledgement_desc">Questa app è un insieme di strumenti che agiranno direttamente con il sistema del tuo dispositivo. Usare alcune di queste funzionalità potrebbe modificare il sistema in modi inaspettati. \n\n Dovrai solo garantire i permessi necessari che sono richiesti per il pieno funzionamento dell\'app. \n\n Sappi inoltre che l\'app non traccia e non salva i tuoi dati personali, in quanto non mi servono affatto. Tieniti sempre al sicuro. Per maggiori informazioni controlla il codice sorgente. \n\n L\'app é completamente open source e sarà sempre di libero uso. Non pagare e installare l\'app da fonti sconosciute.</string>
+    <string name="acknowledgement_desc">Questa applicazione è una raccolta di utility in grado di interagire a fondo con il sistema del tuo dispositivo. L\'uso di alcune funzionalità potrebbe modificare le impostazioni o il comportamento del sistema in modo imprevisto.\n\nÈ necessario concedere solo i permessi richiesti per le funzionalità specifiche che decidi di utilizzare, offrendoti così il pieno controllo sul comportamento dell\'app.\n\nInoltre, l\'applicazione non traccia né memorizza alcuno dei tuoi dati personali, non ne ho bisogno... Restano al sicuro. Puoi fare riferimento al codice sorgente per ulteriori informazioni.\n\nQuesta applicazione è completamente open source ed è, e sarà sempre, gratuita. Non pagare e non installarla da fonti sconosciute.</string>
     <string name="acknowledgement_warning">ATTENZIONE: Procedi con cautela. Lo sviluppatore non ritiene nessuna responsabilità per qualsiasi instabilità nel sistema, perdita di dati, o altri errori causati dall\'uso dell\'app. Procedendo accetterai questi rischi.</string>
     <string name="acknowledgement_footer">Lo so che avrai letto in fretta, però nel caso avessi bisogno di aiuto, non esitare a contattare lo sviluppatore o la community.</string>
     <string name="action_i_understand">Capito</string>
@@ -993,7 +993,7 @@
     </string-array>
     <string-array name="keywords_always_display">
         <item>Sempre</item>
-        <item>display</item>
+        <item>schermo</item>
         <item>orologio</item>
     </string-array>
     <string-array name="keywords_audio_mute">
@@ -1376,7 +1376,7 @@
     <string name="prank_trial_expired_desc">Your free trial period of Essentials has ended. Access to advanced features like Button Remap, App Freezing, and DIY Automations with Premium.</string>
     <string name="prank_button_premium">What\'s in Premium?</string>
     <string name="prank_reveal_title">April Fools!</string>
-    <string name="prank_reveal_desc">Just kidding, Essentials is and will always be free and open source. Enjoy! (っ◕‿◕)っ</string>
+    <string name="prank_reveal_desc">Scherzavo, Essentials è e sarà sempre gratuito e open source. Divertiti! (っ◕‿◕)っ</string>
     <string name="notification_lighting_style_system">System</string>
     <string name="notification_lighting_system_mode_title">Ripple Animation</string>
     <string name="notification_lighting_system_mode_charging_ripple">Bottom</string>
