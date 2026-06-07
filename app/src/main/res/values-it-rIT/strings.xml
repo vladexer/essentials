@@ -217,7 +217,7 @@
     <string name="tile_bubbles">Bolle</string>
     <string name="tile_sensitive_content">Contenuti sensibili</string>
     <string name="tile_tap_to_wake">Tocca per riattivare</string>
-    <string name="tile_aod">Display sempre sttivo</string>
+    <string name="tile_aod">Display sempre attivo</string>
     <string name="tile_caffeinate">Caffeina</string>
     <string name="tile_sound_mode">Modalità audio</string>
     <string name="tile_notification_lighting">Illuminazione di notifica</string>
@@ -424,12 +424,12 @@
     <string name="feat_link_actions_desc">Gestisci i link con più applicazioni</string>
     <string name="feat_snooze_notifications_title">Posticipa le notifiche di sistema</string>
     <string name="feat_snooze_notifications_desc">Posticipa le notifiche persistenti</string>
-    <string name="feat_qs_tiles_title">Riquadri Impostazioni rapide</string>
+    <string name="feat_qs_tiles_title">Riquadri delle impostazioni rapide</string>
     <string name="feat_qs_tiles_desc">Visualizza tutto</string>
     <string name="feat_button_remap_title">Riassegnazione pulsanti</string>
     <string name="feat_button_remap_desc">Riassegna le azioni dei tasti fisici</string>
     <string name="feat_dynamic_night_light_title">Luce notturna dinamica</string>
-    <string name="feat_dynamic_night_light_desc">Attiva/disattiva la luce notturna in base all\'app</string>
+    <string name="feat_dynamic_night_light_desc">Attiva o disattiva la luce notturna in base all\'app</string>
     <string name="feat_screen_locked_security_title">Sicurezza a schermo bloccato</string>
     <string name="feat_app_lock_title">Blocco app</string>
     <string name="feat_app_lock_desc">Proteggi le app con la biometria</string>
@@ -552,11 +552,11 @@
     <string name="search_qs_freeze_desc">Avvia griglia di congelamento app</string>
     <string name="search_qs_pulse_title">Flash della torcia</string>
     <string name="search_qs_pulse_desc">Attiva o disattiva il flash della torcia per le notifiche</string>
-    <string name="search_qs_stay_awake_desc">Attiva/disattiva opzione sviluppatore Rimani attivo</string>
+    <string name="search_qs_stay_awake_desc">Attiva o disattiva l\'opzione sviluppatore Rimani attivo</string>
     <string name="search_qs_private_dns_title">DNS privato</string>
     <string name="search_qs_private_dns_desc">Alterna modalità DNS privato (Disattivato/Automatico/Nome host)</string>
     <string name="search_qs_usb_debugging_title">Debug USB</string>
-    <string name="search_qs_usb_debugging_desc">Attiva/disattiva opzione sviluppatore Debug USB</string>
+    <string name="search_qs_usb_debugging_desc">Attiva o disattiva l\'opzione sviluppatore Debug USB</string>
     <string name="search_qs_refresh_rate_title">Frequenza di aggiornamento</string>
     <string name="search_qs_refresh_rate_desc">Alterna tra le frequenze di aggiornamento predefinite di sistema e preimpostate</string>
     <string name="search_remap_enable_title">Abilita riassegnazione pulsanti</string>
@@ -564,7 +564,7 @@
     <string name="search_remap_haptic_title">Rimappa feedback aptico</string>
     <string name="search_remap_haptic_desc">Vibrazione alla pressione del pulsante riassegnato</string>
     <string name="search_remap_flashlight_title">Interruttore torcia</string>
-    <string name="search_remap_flashlight_desc">Attiva/disattiva la torcia con i pulsanti del volume</string>
+    <string name="search_remap_flashlight_desc">Attiva o disattiva la torcia con i pulsanti del volume</string>
     <string name="search_night_light_enable_title">Abilita luce notturna dinamica</string>
     <string name="search_night_light_enable_desc">Interruttore principale per luce notturna dinamica</string>
     <string name="search_app_lock_enable_title">Abilita blocco app</string>
@@ -722,7 +722,7 @@
     <string name="action_what_is_this">Cos\'è questo?</string>
     <string name="update_available_title">Aggiornamento disponibile</string>
     <string name="about_desc_your_android">Dai un\'occhiata alle specifiche hardware e software del tuo dispositivo. Le informazioni provengono da GSMArena e dalle proprietà del sistema per garantirti una giusta panoramica del tuo dispositivo.</string>
-    <string name="about_desc_essentials_on_display">Essentials su Display mostra un elemento in sovrimpressione In riproduzione sulla schermata di blocco quando c\'è della musica in riproduzione e cambia il brano.\n\nSe il tuo dispositivo non supporta gli elementi in sovrimpressione sul Display sempre attivo, puoi scegliere come alternativa il salvaschermo, aggiunto nelle impostazioni di Android, durante la ricarica.</string>
+    <string name="about_desc_essentials_on_display">Essentials on Display mostra un elemento in sovrimpressione In riproduzione sulla schermata di blocco quando c\'è della musica in riproduzione e cambia il brano.\n\nSe il tuo dispositivo non supporta gli elementi in sovrimpressione sul Display sempre attivo, puoi scegliere come alternativa il salvaschermo, aggiunto nelle impostazioni di Android, durante la ricarica.</string>
     <string name="about_desc_notification_lighting">Illuminazione di notifica aggiunge uno splendido effetto di luce lungo i bordi quando ricevi delle notifiche.\n\nPuoi personalizzare lo stile dell\'animazione, i colori e il comportamento. Funziona sia a schermo spento (a seconda del produttore) sia sopra l\'applicazione corrente. Scegli le app, la priorità delle notifiche o il tipo di comportamento da attivare tramite i controlli dedicati. Se il produttore del tuo dispositivo non supporta gli elementi in sovrimpressione sul Display sempre attivo, usa l\'opzione Display ambient disponibile qui sotto.</string>
     <string name="about_desc_screen_off_widget">Spegni facilmente lo schermo con un tocco su un widget ridimensionabile trasparente che non aggiunge icone o elementi inutili alla schermata iniziale.</string>
     <string name="about_desc_statusbar_icons">Assumi il pieno controllo sulle icone della barra di stato.\n\nNascondi icone specifiche come WiFi, Bluetooth o dati cellulare per mantenere pulita la barra di stato. Puoi anche personalizzare il formato dell\'orologio e l\'indicatore della batteria con alcuni controlli intelligenti. Questo è l\'elenco dei controlli AOSP disponibili, quindi il sistema operativo del tuo dispositivo potrebbe non rispettare tutti i controlli.</string>
