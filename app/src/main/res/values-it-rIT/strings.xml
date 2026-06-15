@@ -14,7 +14,7 @@
     <string name="freeze_shortcut_long_label">Apri congelamento app</string>
     <string name="frozen_app_shortcut_label">App congelata</string>
     <string name="screen_off_widget_label">Widget Spegni-scherno</string>
-    <string name="app_freezing_tile_label">Congelamento aop</string>
+    <string name="app_freezing_tile_label">Congelamento app</string>
     <string name="flashlight_pulse_tile_label">Flash della torcia</string>
     <string name="check_pre_releases_label">Controlla le pre-release</string>
     <string name="check_pre_releases_desc">Potrebbe essere instabile</string>
