@@ -1,5 +1,6 @@
 package com.sameerasw.essentials.ui.activities
 
+import android.content.res.Configuration
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -11,6 +12,7 @@ import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -28,8 +30,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.painterResource
 import com.sameerasw.essentials.R
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -318,50 +322,98 @@ private fun CompassScreen(
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
             ) {
+                val isLandscape = LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
+                val arrowSize = if (isLandscape) 180.dp else 220.dp
+
                 when (page) {
                     0 -> { // Default
-                        // Time — top center
-                        Text(
-                            text = currentTime,
-                            fontSize = 28.sp,
-                            fontWeight = FontWeight.Light,
-                            color = primaryColor,
-                            modifier = Modifier
-                                .align(Alignment.TopCenter)
-                                .padding(top = 80.dp)
-                        )
+                        if (isLandscape) {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .padding(horizontal = 48.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.SpaceEvenly
+                            ) {
+                                Column(
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                    verticalArrangement = Arrangement.Center
+                                ) {
+                                    Text(
+                                        text = currentTime,
+                                        fontSize = 28.sp,
+                                        fontWeight = FontWeight.Light,
+                                        color = primaryColor
+                                    )
+                                    Spacer(modifier = Modifier.height(16.dp))
+                                    Text(
+                                        text = distanceText,
+                                        fontSize = 32.sp,
+                                        fontWeight = FontWeight.Medium,
+                                        color = primaryColor
+                                    )
+                                    if (remainingTimeText.isNotEmpty()) {
+                                        Spacer(modifier = Modifier.height(8.dp))
+                                        Text(
+                                            text = remainingTimeText,
+                                            fontSize = 18.sp,
+                                            fontWeight = FontWeight.Light,
+                                            color = primaryColor.copy(alpha = 0.8f)
+                                        )
+                                    }
+                                }
 
-                        // Arrow container (shape or drawable) — center, rotated to destination
-                        CompassArrowContainer(
-                            rotationDegrees = animatedRotation,
-                            useIcon = useIcon,
-                            color = primaryColor,
-                            modifier = Modifier
-                                .size(220.dp)
-                                .align(Alignment.Center)
-                        )
-
-                        // Bottom Layout
-                        Column(
-                            modifier = Modifier
-                                .align(Alignment.BottomCenter)
-                                .padding(bottom = 80.dp),
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
-                            Text(
-                                text = distanceText,
-                                fontSize = 32.sp,
-                                fontWeight = FontWeight.Medium,
-                                color = primaryColor
-                            )
-                            if (remainingTimeText.isNotEmpty()) {
-                                Spacer(modifier = Modifier.height(8.dp))
-                                Text(
-                                    text = remainingTimeText,
-                                    fontSize = 18.sp,
-                                    fontWeight = FontWeight.Light,
-                                    color = primaryColor.copy(alpha = 0.8f)
+                                CompassArrowContainer(
+                                    rotationDegrees = animatedRotation,
+                                    useIcon = useIcon,
+                                    color = primaryColor,
+                                    modifier = Modifier.size(arrowSize)
                                 )
+                            }
+                        } else {
+                            // Time — top center
+                            Text(
+                                text = currentTime,
+                                fontSize = 28.sp,
+                                fontWeight = FontWeight.Light,
+                                color = primaryColor,
+                                modifier = Modifier
+                                    .align(Alignment.TopCenter)
+                                    .padding(top = 80.dp)
+                            )
+
+                            // Arrow container (shape or drawable) — center, rotated to destination
+                            CompassArrowContainer(
+                                rotationDegrees = animatedRotation,
+                                useIcon = useIcon,
+                                color = primaryColor,
+                                modifier = Modifier
+                                    .size(arrowSize)
+                                    .align(Alignment.Center)
+                            )
+
+                            // Bottom Layout
+                            Column(
+                                modifier = Modifier
+                                    .align(Alignment.BottomCenter)
+                                    .padding(bottom = 80.dp),
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                Text(
+                                    text = distanceText,
+                                    fontSize = 32.sp,
+                                    fontWeight = FontWeight.Medium,
+                                    color = primaryColor
+                                )
+                                if (remainingTimeText.isNotEmpty()) {
+                                    Spacer(modifier = Modifier.height(8.dp))
+                                    Text(
+                                        text = remainingTimeText,
+                                        fontSize = 18.sp,
+                                        fontWeight = FontWeight.Light,
+                                        color = primaryColor.copy(alpha = 0.8f)
+                                    )
+                                }
                             }
                         }
                     }
@@ -371,62 +423,116 @@ private fun CompassScreen(
                             useIcon = useIcon,
                             color = primaryColor,
                             modifier = Modifier
-                                .size(220.dp)
+                                .size(arrowSize)
                                 .align(Alignment.Center)
                         )
                     }
                     2 -> { // Most Details
-                        // Time — top center
-                        Text(
-                            text = currentTime,
-                            fontSize = 28.sp,
-                            fontWeight = FontWeight.Light,
-                            color = primaryColor,
-                            modifier = Modifier
-                                .align(Alignment.TopCenter)
-                                .padding(top = 80.dp)
-                        )
+                        if (isLandscape) {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .padding(horizontal = 48.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.SpaceEvenly
+                            ) {
+                                Column(
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                    verticalArrangement = Arrangement.Center
+                                ) {
+                                    Text(
+                                        text = currentTime,
+                                        fontSize = 28.sp,
+                                        fontWeight = FontWeight.Light,
+                                        color = primaryColor
+                                    )
+                                    Spacer(modifier = Modifier.height(16.dp))
+                                    if (destinationName.isNotEmpty()) {
+                                        Text(
+                                            text = destinationName,
+                                            fontSize = 20.sp,
+                                            fontWeight = FontWeight.Normal,
+                                            color = primaryColor.copy(alpha = 0.9f)
+                                        )
+                                        Spacer(modifier = Modifier.height(8.dp))
+                                    }
+                                    Text(
+                                        text = distanceText,
+                                        fontSize = 32.sp,
+                                        fontWeight = FontWeight.Medium,
+                                        color = primaryColor
+                                    )
+                                    if (remainingTimeText.isNotEmpty()) {
+                                        Spacer(modifier = Modifier.height(8.dp))
+                                        Text(
+                                            text = remainingTimeText,
+                                            fontSize = 18.sp,
+                                            fontWeight = FontWeight.Light,
+                                            color = primaryColor.copy(alpha = 0.8f)
+                                        )
+                                    }
+                                }
 
-                        // Arrow container (shape or drawable) — center, rotated to destination
-                        CompassArrowContainer(
-                            rotationDegrees = animatedRotation,
-                            useIcon = useIcon,
-                            color = primaryColor,
-                            modifier = Modifier
-                                .size(220.dp)
-                                .align(Alignment.Center)
-                        )
-
-                        // Bottom Layout
-                        Column(
-                            modifier = Modifier
-                                .align(Alignment.BottomCenter)
-                                .padding(bottom = 80.dp),
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
-                            if (destinationName.isNotEmpty()) {
-                                Text(
-                                    text = destinationName,
-                                    fontSize = 20.sp,
-                                    fontWeight = FontWeight.Normal,
-                                    color = primaryColor.copy(alpha = 0.9f)
+                                CompassArrowContainer(
+                                    rotationDegrees = animatedRotation,
+                                    useIcon = useIcon,
+                                    color = primaryColor,
+                                    modifier = Modifier.size(arrowSize)
                                 )
-                                Spacer(modifier = Modifier.height(8.dp))
                             }
+                        } else {
+                            // Time — top center
                             Text(
-                                text = distanceText,
-                                fontSize = 32.sp,
-                                fontWeight = FontWeight.Medium,
-                                color = primaryColor
+                                text = currentTime,
+                                fontSize = 28.sp,
+                                fontWeight = FontWeight.Light,
+                                color = primaryColor,
+                                modifier = Modifier
+                                    .align(Alignment.TopCenter)
+                                    .padding(top = 80.dp)
                             )
-                            if (remainingTimeText.isNotEmpty()) {
-                                Spacer(modifier = Modifier.height(8.dp))
+
+                            // Arrow container (shape or drawable) — center, rotated to destination
+                            CompassArrowContainer(
+                                rotationDegrees = animatedRotation,
+                                useIcon = useIcon,
+                                color = primaryColor,
+                                modifier = Modifier
+                                    .size(arrowSize)
+                                    .align(Alignment.Center)
+                            )
+
+                            // Bottom Layout
+                            Column(
+                                modifier = Modifier
+                                    .align(Alignment.BottomCenter)
+                                    .padding(bottom = 80.dp),
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                if (destinationName.isNotEmpty()) {
+                                    Text(
+                                        text = destinationName,
+                                        fontSize = 20.sp,
+                                        fontWeight = FontWeight.Normal,
+                                        color = primaryColor.copy(alpha = 0.9f)
+                                    )
+                                    Spacer(modifier = Modifier.height(8.dp))
+                                }
                                 Text(
-                                    text = remainingTimeText,
-                                    fontSize = 18.sp,
-                                    fontWeight = FontWeight.Light,
-                                    color = primaryColor.copy(alpha = 0.8f)
+                                    text = distanceText,
+                                    fontSize = 32.sp,
+                                    fontWeight = FontWeight.Medium,
+                                    color = primaryColor
                                 )
+                                if (remainingTimeText.isNotEmpty()) {
+                                    Spacer(modifier = Modifier.height(8.dp))
+                                    Text(
+                                        text = remainingTimeText,
+                                        fontSize = 18.sp,
+                                        fontWeight = FontWeight.Light,
+                                        color = primaryColor.copy(alpha = 0.8f)
+                                    )
+                                }
                             }
                         }
                     }
