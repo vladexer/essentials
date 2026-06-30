@@ -185,6 +185,29 @@
         </activity-alias>
 
         <activity
+            android:name=".ui.activities.ActionShortcutActivity"
+            android:exported="true"
+            android:icon="@drawable/rounded_rocket_launch_24"
+            android:label="@string/action_shortcut_short_label"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:launchMode="singleTask"
+            android:excludeFromRecents="true"
+            android:taskAffinity="com.sameerasw.essentials.action" />
+
+        <activity-alias
+            android:name=".ActionShortcutLauncher"
+            android:targetActivity=".ui.activities.ActionShortcutActivity"
+            android:exported="true"
+            android:icon="@drawable/rounded_rocket_launch_24"
+            android:label="@string/action_shortcut_short_label"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
+        <activity
             android:name=".LinkPickerActivity"
             android:exported="true"
             android:label="Open Link"
