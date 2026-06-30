@@ -12,6 +12,8 @@
     <string name="freeze_activity_subtitle">Nadiren kullanılan uygulamaları devre dışı bırakın</string>
     <string name="freeze_shortcut_short_label">Uygulama Dondurma</string>
     <string name="freeze_shortcut_long_label">Uygulama Dondurmayı Aç</string>
+    <string name="action_shortcut_short_label">Action</string>
+    <string name="action_shortcut_long_label">Launch action shortcut</string>
     <string name="frozen_app_shortcut_label">Dondurulmuş Uygulama</string>
     <string name="screen_off_widget_label">Boş ekran kapatma widget\'ı</string>
     <string name="app_freezing_tile_label">Uygulama Dondurma</string>
@@ -423,6 +425,8 @@
     <string name="diy_create_trigger_desc">Bir gözlemde tetiklenecek bir eylem planlayın</string>
     <string name="diy_create_state_title">Durum Otomasyonu</string>
     <string name="diy_create_state_desc">Bir koşulun giriş ve çıkış durumuna göre yürütülecek bir eylem zamanlayın</string>
+    <string name="diy_create_action_shortcut_title">Action Shortcut</string>
+    <string name="diy_create_action_shortcut_desc">Launch shortcut to trigger action</string>
     <string name="diy_editor_new_title">Yeni Otomasyon</string>
     <string name="diy_editor_edit_title">Otomasyonu Düzenle</string>
     <string name="feat_link_actions_title">Bağlantı eylemleri</string>
@@ -817,6 +821,15 @@
     <string name="diy_action_low_power_on">Düşük Güç Modunu Aç</string>
     <string name="diy_action_low_power_off">Düşük Güç Modunu Kapat</string>
     <string name="diy_action_dim_wallpaper">Loş Duvar Kağıdı</string>
+    <string name="diy_action_screen_off">Screen Off</string>
+    <string name="diy_action_media_play_pause">Media Play/Pause</string>
+    <string name="diy_action_media_next">Media Next</string>
+    <string name="diy_action_media_previous">Media Previous</string>
+    <string name="diy_action_ai_assistant">AI Assistant</string>
+    <string name="diy_action_take_screenshot">Take Screenshot</string>
+    <string name="diy_action_toggle_media_volume">Toggle Media Volume</string>
+    <string name="diy_action_like_current_song">Like Current Song</string>
+    <string name="diy_action_circle_to_search">Circle to Search</string>
     <string name="diy_dim_wallpaper_desc">Bu eylem, sistem duvar kağıdı karartmasını ayarlamak için Shizuku veya Root\'u gerektirir.</string>
     <string name="diy_select_trigger">Tetikleyici Seçin</string>
     <string name="diy_create_app_title">Uygulama</string>
