@@ -245,6 +245,75 @@ object CombinedActionExecutor {
                         }
                     }
                 }
+
+                is Action.MediaPlayPause -> {
+                    val am = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+                    am.dispatchMediaKeyEvent(KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE))
+                    am.dispatchMediaKeyEvent(KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE))
+                }
+
+                is Action.MediaNext -> {
+                    val am = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+                    am.dispatchMediaKeyEvent(KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_MEDIA_NEXT))
+                    am.dispatchMediaKeyEvent(KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_MEDIA_NEXT))
+                }
+
+                is Action.MediaPrevious -> {
+                    val am = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+                    am.dispatchMediaKeyEvent(KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_MEDIA_PREVIOUS))
+                    am.dispatchMediaKeyEvent(KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_MEDIA_PREVIOUS))
+                }
+
+                is Action.AIAssistant -> {
+                    try {
+                        val intent = Intent(Intent.ACTION_ASSIST).apply {
+                            flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                        }
+                        context.startActivity(intent)
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
+
+                is Action.TakeScreenshot -> {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                        val serviceInst = ScreenOffAccessibilityService.instance
+                        if (serviceInst != null) {
+                            serviceInst.performGlobalAction(android.accessibilityservice.AccessibilityService.GLOBAL_ACTION_TAKE_SCREENSHOT)
+                        } else {
+                            Toast.makeText(context, "Accessibility service is not running", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+
+                is Action.ToggleMediaVolume -> {
+                    val am = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+                    val currentVolume = am.getStreamVolume(AudioManager.STREAM_MUSIC)
+                    val prefs = context.getSharedPreferences("essentials_prefs", Context.MODE_PRIVATE)
+
+                    if (currentVolume > 0) {
+                        prefs.edit().putInt("last_media_volume", currentVolume).apply()
+                        am.setStreamVolume(AudioManager.STREAM_MUSIC, 0, AudioManager.FLAG_SHOW_UI)
+                    } else {
+                        val lastVolume = prefs.getInt(
+                            "last_media_volume",
+                            am.getStreamMaxVolume(AudioManager.STREAM_MUSIC) / 2
+                        )
+                        am.setStreamVolume(AudioManager.STREAM_MUSIC, lastVolume, AudioManager.FLAG_SHOW_UI)
+                    }
+                }
+
+                is Action.LikeCurrentSong -> {
+                    context.sendBroadcast(
+                        Intent("com.sameerasw.essentials.ACTION_LIKE_CURRENT_SONG").setPackage(
+                            context.packageName
+                        )
+                    )
+                }
+
+                is Action.CircleToSearch -> {
+                    com.sameerasw.essentials.utils.OmniTriggerUtil.trigger(context)
+                }
             }
         }
     }

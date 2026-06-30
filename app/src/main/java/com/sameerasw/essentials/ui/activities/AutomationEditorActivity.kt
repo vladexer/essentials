@@ -588,7 +588,15 @@ class AutomationEditorActivity : ComponentActivity() {
                                                 Action.ScreenOff(),
                                                 Action.SoundMode(),
                                                 Action.TurnOnLowPower,
-                                                Action.TurnOffLowPower
+                                                Action.TurnOffLowPower,
+                                                Action.MediaPlayPause,
+                                                Action.MediaNext,
+                                                Action.MediaPrevious,
+                                                Action.AIAssistant,
+                                                Action.TakeScreenshot,
+                                                Action.ToggleMediaVolume,
+                                                Action.LikeCurrentSong,
+                                                Action.CircleToSearch
                                             )
                                             // Only show Device Effects on Android 15+ 
                                             actions.add(Action.DeviceEffects())
