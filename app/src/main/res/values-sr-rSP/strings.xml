@@ -427,6 +427,8 @@
     <string name="diy_editor_edit_title">Уреди аутоматизацију</string>
     <string name="feat_link_actions_title">Радње веза</string>
     <string name="feat_link_actions_desc">Управљајте везама са више апликација</string>
+    <string name="feat_flashlight_title">Flashlight</string>
+    <string name="feat_flashlight_desc">Improve flashlight behavior</string>
     <string name="feat_snooze_notifications_title">Одложите системска обавештења</string>
     <string name="feat_snooze_notifications_desc">Одложите стална обавештења</string>
     <string name="feat_qs_tiles_title">Плочице за брза подешавања</string>
