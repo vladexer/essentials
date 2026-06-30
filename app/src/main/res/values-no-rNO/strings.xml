@@ -427,6 +427,8 @@
     <string name="diy_editor_edit_title">Rediger automatisering</string>
     <string name="feat_link_actions_title">Koblehandlinger</string>
     <string name="feat_link_actions_desc">Håndter lenker med flere apper</string>
+    <string name="feat_flashlight_title">Flashlight</string>
+    <string name="feat_flashlight_desc">Improve flashlight behavior</string>
     <string name="feat_snooze_notifications_title">Utsett systemvarsler</string>
     <string name="feat_snooze_notifications_desc">Utsett vedvarende varsler</string>
     <string name="feat_qs_tiles_title">Hurtiginnstillinger fliser</string>
