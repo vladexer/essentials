@@ -429,6 +429,7 @@
     <string name="feat_link_actions_desc">여러 앱의 링크 처리</string>
     <string name="feat_flashlight_title">Flashlight</string>
     <string name="feat_flashlight_desc">Improve flashlight behavior</string>
+    <string name="label_restore_mode">Restore mode</string>
     <string name="feat_snooze_notifications_title">시스템 알림 일시중지</string>
     <string name="feat_snooze_notifications_desc">지속적인 알림 일시 중지</string>
     <string name="feat_qs_tiles_title">빠른 설정 타일</string>
