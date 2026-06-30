@@ -180,6 +180,7 @@
     <string name="flashlight_pulse_facedown_title">Seulement quand le téléphone est vers le bas</string>
     <string name="flashlight_pulse_same_as_lighting_title">Mêmes applis que les notifications lumineuses</string>
     <string name="flashlight_pulse_max_brightness">Luminosité maximale</string>
+    <string name="flashlight_pulse_disable_on_dnd_title">Do not trigger on DND</string>
     <string name="flashlight_pulse_preview">Prévisualiser le clignotement</string>
     <string name="settings_section_style">Style</string>
     <string name="notification_lighting_stroke_adjustment_section">Ajustement du trait</string>
