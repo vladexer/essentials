@@ -1436,6 +1436,8 @@ Cuando llegue un mensaje o alerta de una aplicación seleccionada, la Pantalla s
     <string name="shut_up_shortcut_created">Acceso directo creado para %s</string>
     <string name="feat_disable_rotation_suggestion_title">Desactivar sugerencia de rotación</string>
     <string name="feat_disable_rotation_suggestion_desc">No mostrar el botón de rotación cuando la rotación automática esté desactivada</string>
+    <string name="feat_pixel_searchbar_title">Pixel searchbar</string>
+    <string name="feat_pixel_searchbar_desc">Set Essentials as the default search provider for the home screen search bar in Pixel Launcher.</string>
     <string name="shut_up_toast_active">La aplicación fue silenciada</string>
     <string name="shut_up_toast_restored">Las funciones de Cállate han regresado</string>
     <string name="shut_up_auto_archive_notif_title">Congelación automática</string>
@@ -1490,4 +1492,7 @@ Cuando llegue un mensaje o alerta de una aplicación seleccionada, la Pantalla s
     <!-- External Control Permission -->
     <string name="perm_external_control_label">controlar las funciones de Essentials</string>
     <string name="perm_external_control_desc">leer, actualizar y controlar las funciones y ajustes de Essentials</string>
+    <string name="pixel_searchbar_settings_title">Pixel Searchbar Customization</string>
+    <string name="pixel_searchbar_style_empty">Empty (Default)</string>
+    <string name="pixel_searchbar_style_date">Date</string>
 </resources>
