@@ -24,6 +24,8 @@ import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
@@ -261,11 +263,10 @@ class MainActivity : AppCompatActivity() {
                         val index = tabs.indexOf(defaultTab)
                         if (index != -1) index else 0
                     }
-                    var currentPage by remember {
-                        androidx.compose.runtime.mutableIntStateOf(
-                            initialPage
-                        )
-                    }
+                    val pagerState = rememberPagerState(
+                        initialPage = initialPage,
+                        pageCount = { tabs.size }
+                    )
 
                     LaunchedEffect(intent) {
                         intent?.getStringExtra("target_tab")?.let { tabName ->
@@ -273,7 +274,7 @@ class MainActivity : AppCompatActivity() {
                                 val tab = DIYTabs.valueOf(tabName)
                                 val index = tabs.indexOf(tab)
                                 if (index != -1) {
-                                    currentPage = index
+                                    pagerState.scrollToPage(index)
                                     intent.removeExtra("target_tab")
                                 }
                             } catch (e: Exception) {
@@ -285,12 +286,14 @@ class MainActivity : AppCompatActivity() {
                     val scope = rememberCoroutineScope()
 
                     // Handle predictive back button for tab navigation
-                    PredictiveBackHandler(enabled = currentPage != initialPage) { progress ->
+                    PredictiveBackHandler(enabled = pagerState.currentPage != initialPage) { progress ->
                         try {
                             progress.collect { backEvent ->
                                 backProgress.snapTo(backEvent.progress)
                             }
-                            currentPage = initialPage
+                            scope.launch {
+                                pagerState.animateScrollToPage(initialPage)
+                            }
                             scope.launch {
                                 backProgress.animateTo(
                                     targetValue = 0f,
@@ -309,8 +312,8 @@ class MainActivity : AppCompatActivity() {
 
                     // Gracefully handle tab removal (e.g. disabling Developer Mode)
                     LaunchedEffect(tabs) {
-                        if (currentPage >= tabs.size) {
-                            currentPage = 0
+                        if (pagerState.currentPage >= tabs.size) {
+                            pagerState.scrollToPage(0)
                         }
                     }
                     val exitAlwaysScrollBehavior =
@@ -460,8 +463,8 @@ class MainActivity : AppCompatActivity() {
                                         direction = BlurDirection.TOP
                                     )
                             ) {
-                                val currentTab = remember(tabs, currentPage) {
-                                    tabs.getOrNull(currentPage) ?: tabs.firstOrNull()
+                                val currentTab = remember(tabs, pagerState.currentPage) {
+                                    tabs.getOrNull(pagerState.currentPage) ?: tabs.firstOrNull()
                                     ?: DIYTabs.ESSENTIALS
                                 }
 
@@ -469,14 +472,16 @@ class MainActivity : AppCompatActivity() {
                                     modifier = Modifier
                                         .align(Alignment.BottomCenter)
                                         .zIndex(1f),
-                                    selectedIndex = currentPage,
+                                    selectedIndex = pagerState.currentPage,
                                     items = tabs.mapIndexed { index, tab ->
                                         ToolbarItem(
                                             iconRes = tab.iconRes,
                                             labelRes = tab.title,
                                             onClick = {
                                                 HapticUtil.performUIHaptic(view)
-                                                currentPage = index
+                                                scope.launch {
+                                                    pagerState.animateScrollToPage(index)
+                                                }
                                             },
                                             hasBadge = false
                                         )
@@ -551,22 +556,8 @@ class MainActivity : AppCompatActivity() {
                                     }
                                 )
 
-                                AnimatedContent(
-                                    targetState = currentPage,
-                                    transitionSpec = {
-                                        val animationSpec = tween<Float>(durationMillis = 400)
-                                        val slideOffset = 150
-
-                                        (fadeIn(animationSpec = animationSpec) + slideInVertically(
-                                            animationSpec = tween(durationMillis = 400),
-                                            initialOffsetY = { slideOffset }
-                                        )).togetherWith(
-                                            fadeOut(animationSpec = animationSpec) + slideOutVertically(
-                                                animationSpec = tween(durationMillis = 400),
-                                                targetOffsetY = { slideOffset }
-                                            )
-                                        )
-                                    },
+                                HorizontalPager(
+                                    state = pagerState,
                                     modifier = Modifier
                                         .scale(1f - (backProgress.value * 0.05f))
                                         .alpha(1f - (backProgress.value * 0.3f))
@@ -575,7 +566,7 @@ class MainActivity : AppCompatActivity() {
                                             height = with(androidx.compose.ui.platform.LocalDensity.current) { 130.dp.toPx() },
                                             direction = BlurDirection.BOTTOM
                                         ),
-                                    label = "Tab Transition"
+                                    userScrollEnabled = true
                                 ) { targetPage ->
                                     val statusBarHeight = WindowInsets.statusBars.asPaddingValues()
                                         .calculateTopPadding()
