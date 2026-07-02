@@ -103,10 +103,10 @@ object DeviceInfoSyncManager {
         }
         context.contentResolver.registerContentObserver(aodUri, true, aodContentObserver!!)
 
-        // Sync on preference change (flashlight pulse, glance)
+        // Sync on preference change (flashlight pulse, glance, watch controls)
         val p = context.getSharedPreferences("essentials_prefs", Context.MODE_PRIVATE)
         prefChangeListener = android.content.SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
-            if (key == "flashlight_pulse_enabled" || key == "notification_glance_enabled") {
+            if (key == "flashlight_pulse_enabled" || key == "notification_glance_enabled" || key == "watch_controls_layout") {
                 syncDeviceInfo(context)
             }
         }
@@ -172,6 +172,8 @@ object DeviceInfoSyncManager {
             else -> 0
         }
 
+        val watchControlsLayout = prefs.getString("watch_controls_layout", "LOCK,SOUND,FLASHLIGHT,FLASHLIGHT_PULSE,AOD") ?: "LOCK,SOUND,FLASHLIGHT,FLASHLIGHT_PULSE,AOD"
+
         val dataMap = putDataMapReq.dataMap
         dataMap.putInt("battery_level", batteryPct)
         dataMap.putBoolean("is_charging", isCharging)
@@ -183,6 +185,7 @@ object DeviceInfoSyncManager {
         dataMap.putString("device_name", deviceName)
         dataMap.putBoolean("flashlight_pulse_enabled", flashlightPulseEnabled)
         dataMap.putInt("aod_state", aodState)
+        dataMap.putString("watch_controls_layout", watchControlsLayout)
         
         dataMap.putBoolean("travel_active", travelActive)
         dataMap.putString("travel_name", travelName)

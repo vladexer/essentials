@@ -83,6 +83,7 @@ import com.sameerasw.essentials.ui.composables.configs.SoundModeTileSettingsUI
 import com.sameerasw.essentials.ui.composables.configs.StatusBarIconSettingsUI
 import com.sameerasw.essentials.ui.composables.configs.TextAnimationsSettingsUI
 import com.sameerasw.essentials.ui.composables.configs.WatchSettingsUI
+import com.sameerasw.essentials.ui.composables.configs.WatchControlsSettingsUI
 import com.sameerasw.essentials.ui.modifiers.BlurDirection
 import com.sameerasw.essentials.ui.modifiers.progressiveBlur
 import com.sameerasw.essentials.ui.theme.EssentialsTheme
@@ -411,7 +412,7 @@ class FeatureSettingsActivity : AppCompatActivity() {
                             )
                     ) {
                         val hasScroll =
-                            featureId != "Sound mode tile" && featureId != "Quick settings tiles" && featureId != "Location reached"
+                            featureId != "Sound mode tile" && featureId != "Quick settings tiles" && featureId != "Location reached" && featureId != "Watch Controls"
                         Column(
                             modifier = Modifier
                                 .fillMaxSize()
@@ -708,6 +709,13 @@ class FeatureSettingsActivity : AppCompatActivity() {
                                             viewModel = viewModel,
                                             modifier = Modifier.padding(top = 16.dp),
                                             highlightKey = highlightSetting
+                                        )
+                                    }
+
+                                    "Watch Controls" -> {
+                                        WatchControlsSettingsUI(
+                                            modifier = Modifier.padding(top = 16.dp),
+                                            highlightSetting = highlightSetting
                                         )
                                     }
 

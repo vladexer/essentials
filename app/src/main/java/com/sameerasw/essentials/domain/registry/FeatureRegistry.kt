@@ -1071,6 +1071,20 @@ object FeatureRegistry {
             override fun isEnabled(viewModel: MainViewModel) = true
             override fun onToggle(viewModel: MainViewModel, context: Context, enabled: Boolean) {}
         },
+        object : Feature(
+            id = "Watch Controls",
+            title = R.string.feat_watch_controls_title,
+            iconRes = R.drawable.rounded_edit_24,
+            category = R.string.cat_tools,
+            description = R.string.feat_watch_controls_desc,
+            aboutDescription = R.string.feat_watch_controls_desc,
+            parentFeatureId = "Watch",
+            hasMoreSettings = true,
+            showToggle = false
+        ) {
+            override fun isEnabled(viewModel: MainViewModel) = true
+            override fun onToggle(viewModel: MainViewModel, context: Context, enabled: Boolean) {}
+        },
 
 
         object : Feature(
