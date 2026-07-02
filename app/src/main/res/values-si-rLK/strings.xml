@@ -629,6 +629,8 @@
     <string name="perm_action_enable">සැකසීම් තුළ සබල කරන්න</string>
     <string name="perm_action_how_to">ලබා දෙන ආකාරය</string>
     <string name="perm_action_granted">අවසර දී ඇත</string>
+    <string name="perm_action_grant_shizuku">Grant using Shizuku</string>
+    <string name="perm_write_secure_instructions">This permission can be granted either via a PC using ADB. Copy the ADB command and run on the shell.\n\nOr you can easily grant it using Shizuku from the below button.\n\nThis permission only needs to be granted once.</string>
     <string name="perm_battery_optimization_title">බැටරි ප්රශස්තකරණය</string>
     <string name="perm_battery_optimization_desc">බලය ඉතිරි කර ගැනීම සඳහා පද්ධතිය මඟින් සේවාව විනාශ නොවන බවට සහතික වන්න.</string>
     <!-- Tabs -->
@@ -1275,6 +1277,12 @@
     <string name="feat_watch_controls_desc">Customize WearOS app controls</string>
     <string name="watch_controls_long_press_hint">Long press to enable or disable buttons</string>
     <string name="watch_controls_reorder_title">Reorder watch controls</string>
+    <string name="feat_watch_wireless_debugging_title">Wireless Debugging</string>
+    <string name="feat_watch_wireless_debugging_desc">Enable remotely</string>
+    <string name="feat_sync_sound_mode_title">Sync sound mode</string>
+    <string name="feat_sync_sound_mode_desc">Automatically sync with watch</string>
+    <string name="perm_watch_write_secure_title">Watch Secure Settings</string>
+    <string name="perm_watch_write_secure_desc">Requires secure settings write permission on your Watch. Grant it using the ADB command below.</string>
     <string name="cat_interaction">අන්තර්ක්රියා</string>
     <string name="cat_interface">අතුරු මුහුණත</string>
     <string name="cat_display">ප්රදර්ශනය කරන්න</string>
@@ -1383,6 +1391,8 @@
     <string name="label_use_blur">බොඳ කිරීම භාවිතා කරන්න</string>
     <string name="desc_use_blur">UI හරහා ප්‍රගතිශීලී බොඳ මූලද්‍රව්‍ය සබල කරන්න</string>
     <string name="msg_blur_compatibility_error">Android 15 හෝ ඊට අඩු Samsung උපාංගවල දන්නා සංදර්ශක දෝෂයක් වැළැක්වීමට මෙම උපාංගයේ Blur අබල කර ඇත.</string>
+    <string name="setting_swipe_tabs_title">Swipe between tabs</string>
+    <string name="setting_swipe_tabs_desc">In home screen</string>
     <!-- Empty State Actions -->
     <string name="msg_no_apps_frozen">No apps selected to freeze.</string>
     <string name="action_get_started">Get Started</string>
