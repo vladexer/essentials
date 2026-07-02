@@ -3,6 +3,8 @@ package com.sameerasw.essentials.services
 import com.google.android.gms.wearable.MessageEvent
 import com.google.android.gms.wearable.WearableListenerService
 
+import androidx.core.content.edit
+
 class EssentialsWearableListenerService : WearableListenerService() {
     companion object {
         private const val TAG = "EssentialsWearableListener"
@@ -79,6 +81,53 @@ class EssentialsWearableListenerService : WearableListenerService() {
                         action = "LOCK_SCREEN"
                     }
                     startService(intent)
+                }
+            }
+
+            "/toggle_flashlight_pulse" -> {
+                val prefs = getSharedPreferences("essentials_prefs", MODE_PRIVATE)
+                val enabled = prefs.getBoolean("flashlight_pulse_enabled", false)
+                prefs.edit(commit = true) {
+                    putBoolean("flashlight_pulse_enabled", !enabled)
+                }
+            }
+
+            "/toggle_aod" -> {
+                val prefs = getSharedPreferences("essentials_prefs", MODE_PRIVATE)
+                val isGlanceEnabled = prefs.getBoolean("notification_glance_enabled", false)
+                val isAodEnabled = android.provider.Settings.Secure.getInt(contentResolver, "doze_always_on", 0) == 1
+
+                when {
+                    isGlanceEnabled -> {
+                        prefs.edit(commit = true) {
+                            putBoolean("notification_glance_enabled", false)
+                        }
+                        try {
+                            android.provider.Settings.Secure.putInt(contentResolver, "doze_always_on", 1)
+                        } catch (_: Exception) {
+                            com.sameerasw.essentials.utils.ShellUtils.runCommand(this, "settings put secure doze_always_on 1")
+                        }
+                    }
+                    isAodEnabled -> {
+                        try {
+                            android.provider.Settings.Secure.putInt(contentResolver, "doze_always_on", 0)
+                        } catch (_: Exception) {
+                            com.sameerasw.essentials.utils.ShellUtils.runCommand(this, "settings put secure doze_always_on 0")
+                        }
+                        prefs.edit(commit = true) {
+                            putBoolean("notification_glance_enabled", false)
+                        }
+                    }
+                    else -> {
+                        prefs.edit(commit = true) {
+                            putBoolean("notification_glance_enabled", true)
+                        }
+                        try {
+                            android.provider.Settings.Secure.putInt(contentResolver, "doze_always_on", 0)
+                        } catch (_: Exception) {
+                            com.sameerasw.essentials.utils.ShellUtils.runCommand(this, "settings put secure doze_always_on 0")
+                        }
+                    }
                 }
             }
         }

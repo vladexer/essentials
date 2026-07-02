@@ -62,6 +62,8 @@ object DeviceInfoSyncManager {
     }
 
     private var currentContext: Context? = null
+    private var prefChangeListener: android.content.SharedPreferences.OnSharedPreferenceChangeListener? = null
+    private var aodContentObserver: android.database.ContentObserver? = null
 
     fun init(context: Context) {
         if (isInitialized) return
@@ -92,13 +94,23 @@ object DeviceInfoSyncManager {
         val cameraManager = context.getSystemService(Context.CAMERA_SERVICE) as CameraManager
         cameraManager.registerTorchCallback(torchCallback, handler)
 
-        // Get initial flashlight state
-        val id = FlashlightUtil.getCameraId(context)
-        if (id != null) {
-            isIntensitySupported = FlashlightUtil.isIntensitySupported(context, id)
-            maxTorchLevel = FlashlightUtil.getMaxLevel(context, id)
-            torchLevel = FlashlightUtil.getCurrentLevel(context, id)
+        // Sync on AOD change
+        val aodUri = android.provider.Settings.Secure.getUriFor("doze_always_on")
+        aodContentObserver = object : android.database.ContentObserver(handler) {
+            override fun onChange(selfChange: Boolean) {
+                syncDeviceInfo(context)
+            }
         }
+        context.contentResolver.registerContentObserver(aodUri, true, aodContentObserver!!)
+
+        // Sync on preference change (flashlight pulse, glance)
+        val p = context.getSharedPreferences("essentials_prefs", Context.MODE_PRIVATE)
+        prefChangeListener = android.content.SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
+            if (key == "flashlight_pulse_enabled" || key == "notification_glance_enabled") {
+                syncDeviceInfo(context)
+            }
+        }
+        p.registerOnSharedPreferenceChangeListener(prefChangeListener)
     }
 
     private val syncDebouncer = Runnable {
@@ -153,6 +165,13 @@ object DeviceInfoSyncManager {
         val travelIsPaused = prefs.getBoolean("travel_is_paused", false)
         val travelArrived = prefs.getBoolean("travel_arrived", false)
 
+        val flashlightPulseEnabled = prefs.getBoolean("flashlight_pulse_enabled", false)
+        val aodState = when {
+            prefs.getBoolean("notification_glance_enabled", false) -> 2
+            android.provider.Settings.Secure.getInt(context.contentResolver, "doze_always_on", 0) == 1 -> 1
+            else -> 0
+        }
+
         val dataMap = putDataMapReq.dataMap
         dataMap.putInt("battery_level", batteryPct)
         dataMap.putBoolean("is_charging", isCharging)
@@ -162,6 +181,8 @@ object DeviceInfoSyncManager {
         dataMap.putBoolean("flashlight_intensity_supported", isIntensitySupported)
         dataMap.putInt("ringer_mode", ringerMode)
         dataMap.putString("device_name", deviceName)
+        dataMap.putBoolean("flashlight_pulse_enabled", flashlightPulseEnabled)
+        dataMap.putInt("aod_state", aodState)
         
         dataMap.putBoolean("travel_active", travelActive)
         dataMap.putString("travel_name", travelName)
