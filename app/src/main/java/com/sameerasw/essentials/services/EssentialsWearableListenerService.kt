@@ -130,6 +130,16 @@ class EssentialsWearableListenerService : WearableListenerService() {
                     }
                 }
             }
+
+            "/toggle_tap_to_wake" -> {
+                val isEnabled = android.provider.Settings.Secure.getInt(contentResolver, "doze_tap_gesture", 1) == 1
+                val newState = if (isEnabled) 0 else 1
+                try {
+                    android.provider.Settings.Secure.putInt(contentResolver, "doze_tap_gesture", newState)
+                } catch (_: Exception) {
+                    com.sameerasw.essentials.utils.ShellUtils.runCommand(this, "settings put secure doze_tap_gesture $newState")
+                }
+            }
         }
     }
 }

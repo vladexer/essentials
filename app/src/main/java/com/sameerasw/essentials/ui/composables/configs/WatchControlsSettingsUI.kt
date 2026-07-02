@@ -50,11 +50,11 @@ fun WatchControlsSettingsUI(
         context.getSharedPreferences("essentials_prefs", android.content.Context.MODE_PRIVATE)
     }
 
-    val defaultLayout = "LOCK,SOUND,FLASHLIGHT,FLASHLIGHT_PULSE,AOD"
+    val defaultLayout = "LOCK,SOUND,FLASHLIGHT,FLASHLIGHT_PULSE,AOD,TAP_TO_WAKE"
     val savedLayout = prefs.getString("watch_controls_layout", defaultLayout) ?: defaultLayout
     var activeControls by remember { mutableStateOf(savedLayout.split(",").filter { it.isNotBlank() }) }
 
-    val allPossible = listOf("LOCK", "SOUND", "FLASHLIGHT", "FLASHLIGHT_PULSE", "AOD")
+    val allPossible = listOf("LOCK", "SOUND", "FLASHLIGHT", "FLASHLIGHT_PULSE", "AOD", "TAP_TO_WAKE")
     var disabledControls by remember {
         mutableStateOf(allPossible.filter { it !in activeControls })
     }
@@ -64,7 +64,8 @@ fun WatchControlsSettingsUI(
         "SOUND" to R.drawable.rounded_volume_up_24,
         "FLASHLIGHT" to R.drawable.rounded_flashlight_on_24,
         "FLASHLIGHT_PULSE" to R.drawable.outline_backlight_high_24,
-        "AOD" to R.drawable.rounded_mobile_text_2_24
+        "AOD" to R.drawable.rounded_mobile_text_2_24,
+        "TAP_TO_WAKE" to R.drawable.rounded_touch_app_24
     )
 
     val controlNames = mapOf(
@@ -72,7 +73,8 @@ fun WatchControlsSettingsUI(
         "SOUND" to R.string.tile_sound_mode,
         "FLASHLIGHT" to R.string.tile_flashlight,
         "FLASHLIGHT_PULSE" to R.string.tile_flashlight_pulse,
-        "AOD" to R.string.feat_always_on_display_title
+        "AOD" to R.string.feat_always_on_display_title,
+        "TAP_TO_WAKE" to R.string.tile_tap_to_wake
     )
 
     fun save() {

@@ -64,6 +64,7 @@ object DeviceInfoSyncManager {
     private var currentContext: Context? = null
     private var prefChangeListener: android.content.SharedPreferences.OnSharedPreferenceChangeListener? = null
     private var aodContentObserver: android.database.ContentObserver? = null
+    private var tapToWakeContentObserver: android.database.ContentObserver? = null
 
     fun init(context: Context) {
         if (isInitialized) return
@@ -102,6 +103,15 @@ object DeviceInfoSyncManager {
             }
         }
         context.contentResolver.registerContentObserver(aodUri, true, aodContentObserver!!)
+
+        // Sync on Tap to wake change
+        val tapToWakeUri = android.provider.Settings.Secure.getUriFor("doze_tap_gesture")
+        tapToWakeContentObserver = object : android.database.ContentObserver(handler) {
+            override fun onChange(selfChange: Boolean) {
+                syncDeviceInfo(context)
+            }
+        }
+        context.contentResolver.registerContentObserver(tapToWakeUri, true, tapToWakeContentObserver!!)
 
         // Sync on preference change (flashlight pulse, glance, watch controls)
         val p = context.getSharedPreferences("essentials_prefs", Context.MODE_PRIVATE)
@@ -174,6 +184,8 @@ object DeviceInfoSyncManager {
 
         val watchControlsLayout = prefs.getString("watch_controls_layout", "LOCK,SOUND,FLASHLIGHT,FLASHLIGHT_PULSE,AOD") ?: "LOCK,SOUND,FLASHLIGHT,FLASHLIGHT_PULSE,AOD"
 
+        val tapToWakeEnabled = android.provider.Settings.Secure.getInt(context.contentResolver, "doze_tap_gesture", 1) == 1
+
         val dataMap = putDataMapReq.dataMap
         dataMap.putInt("battery_level", batteryPct)
         dataMap.putBoolean("is_charging", isCharging)
@@ -185,6 +197,7 @@ object DeviceInfoSyncManager {
         dataMap.putString("device_name", deviceName)
         dataMap.putBoolean("flashlight_pulse_enabled", flashlightPulseEnabled)
         dataMap.putInt("aod_state", aodState)
+        dataMap.putBoolean("tap_to_wake_enabled", tapToWakeEnabled)
         dataMap.putString("watch_controls_layout", watchControlsLayout)
         
         dataMap.putBoolean("travel_active", travelActive)
