@@ -44,6 +44,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -282,6 +283,36 @@ class MainActivity : AppCompatActivity() {
                                 // Ignore
                             }
                         }
+                    }
+
+                    // Haptic feedback on tab page change
+                    LaunchedEffect(pagerState) {
+                        var isFirst = true
+                        snapshotFlow { pagerState.currentPage }
+                            .collect {
+                                if (isFirst) {
+                                    isFirst = false
+                                } else if (isSwipeTabsEnabled) {
+                                    HapticUtil.performHeavyHaptic(view)
+                                }
+                            }
+                    }
+
+                    // Bucketed rumble haptic while swiping between tabs
+                    var lastSwipeHapticBucket by androidx.compose.runtime.mutableIntStateOf(0)
+                    LaunchedEffect(pagerState) {
+                        snapshotFlow { pagerState.currentPageOffsetFraction }
+                            .collect { offset ->
+                                if (!isSwipeTabsEnabled) return@collect
+                                val fraction = kotlin.math.abs(offset)
+                                val currentBucket = (fraction * 10).toInt()
+                                if (currentBucket != lastSwipeHapticBucket) {
+                                    if (fraction > 0f) {
+                                        HapticUtil.performSliderHaptic(view)
+                                    }
+                                    lastSwipeHapticBucket = currentBucket
+                                }
+                            }
                     }
                     val backProgress = remember { Animatable(0f) }
                     val scope = rememberCoroutineScope()
