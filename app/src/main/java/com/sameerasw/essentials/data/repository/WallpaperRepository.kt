@@ -100,4 +100,20 @@ class WallpaperRepository {
             false
         }
     }
+
+    suspend fun autoApplyWallpaper(context: Context, urlString: String): Boolean = withContext(Dispatchers.IO) {
+        try {
+            val bitmap = downloadBitmap(urlString) ?: return@withContext false
+            val wallpaperManager = WallpaperManager.getInstance(context)
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                wallpaperManager.setBitmap(bitmap, null, true, WallpaperManager.FLAG_SYSTEM or WallpaperManager.FLAG_LOCK)
+            } else {
+                wallpaperManager.setBitmap(bitmap)
+            }
+            true
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
+        }
+    }
 }

@@ -1,0 +1,52 @@
+package com.sameerasw.essentials.services
+
+import android.content.Context
+import android.util.Log
+import androidx.work.CoroutineWorker
+import androidx.work.WorkerParameters
+import com.sameerasw.essentials.data.repository.SettingsRepository
+import com.sameerasw.essentials.data.repository.WallpaperRepository
+
+class DailyWallpaperWorker(
+    appContext: Context,
+    workerParams: WorkerParameters
+) : CoroutineWorker(appContext, workerParams) {
+
+    override suspend fun doWork(): Result {
+        Log.d("DailyWallpaperWorker", "Executing periodic wallpaper sync")
+        val context = applicationContext
+        val settingsRepository = SettingsRepository(context)
+        val wallpaperRepository = WallpaperRepository()
+
+        return try {
+            val isEnabled = settingsRepository.getBoolean(SettingsRepository.KEY_DAILY_WALLPAPER_AUTO_UPDATE, false)
+            if (!isEnabled) {
+                return Result.success()
+            }
+
+            val todayWallpaper = wallpaperRepository.fetchTodayWallpaper()
+            if (todayWallpaper != null) {
+                val cachedId = settingsRepository.getString(SettingsRepository.KEY_DAILY_WALLPAPER_LAST_ID) ?: ""
+                
+                // If it is a new wallpaper, fetch and apply
+                if (todayWallpaper.id != cachedId) {
+                    val applied = wallpaperRepository.autoApplyWallpaper(context, todayWallpaper.urlMobile)
+                    if (applied) {
+                        settingsRepository.putString(SettingsRepository.KEY_DAILY_WALLPAPER_LAST_ID, todayWallpaper.id)
+                        settingsRepository.putString(SettingsRepository.KEY_DAILY_WALLPAPER_LAST_URL, todayWallpaper.url)
+                        settingsRepository.putString(SettingsRepository.KEY_DAILY_WALLPAPER_LAST_URL_MOBILE, todayWallpaper.urlMobile)
+                        settingsRepository.putString(SettingsRepository.KEY_DAILY_WALLPAPER_AUTHOR_NAME, todayWallpaper.authorName)
+                        settingsRepository.putString(SettingsRepository.KEY_DAILY_WALLPAPER_AUTHOR_LINK, todayWallpaper.authorLink)
+                        settingsRepository.putString(SettingsRepository.KEY_DAILY_WALLPAPER_PHOTO_LINK, todayWallpaper.photoLink)
+                        settingsRepository.putString(SettingsRepository.KEY_DAILY_WALLPAPER_UPDATED_AT, todayWallpaper.updatedAt)
+                        Log.d("DailyWallpaperWorker", "Successfully auto-applied new wallpaper: ${todayWallpaper.id}")
+                    }
+                }
+            }
+            Result.success()
+        } catch (e: Exception) {
+            Log.e("DailyWallpaperWorker", "Error during periodic sync", e)
+            Result.retry()
+        }
+    }
+}

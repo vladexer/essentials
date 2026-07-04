@@ -897,6 +897,10 @@ class MainViewModel : ViewModel() {
         loadShutUpConfigs()
         recentSearches.value = settingsRepository.getRecentSearches()
         loadCachedWallpaper()
+        isDailyWallpaperAutoUpdateEnabled.value = settingsRepository.getBoolean(SettingsRepository.KEY_DAILY_WALLPAPER_AUTO_UPDATE, false)
+        if (isDailyWallpaperAutoUpdateEnabled.value) {
+            schedulePeriodicWallpaperCheck(context)
+        }
 
         if (isHideGestureBarEnabled.value) {
             applyHideGestureBar(context, true)
@@ -3974,5 +3978,34 @@ class MainViewModel : ViewModel() {
             isWallpaperLoading.value = false
             onResult(success)
         }
+    }
+
+    val isDailyWallpaperAutoUpdateEnabled = mutableStateOf(false)
+
+    fun setDailyWallpaperAutoUpdate(enabled: Boolean, context: Context) {
+        isDailyWallpaperAutoUpdateEnabled.value = enabled
+        settingsRepository.putBoolean(SettingsRepository.KEY_DAILY_WALLPAPER_AUTO_UPDATE, enabled)
+        if (enabled) {
+            schedulePeriodicWallpaperCheck(context)
+        } else {
+            cancelPeriodicWallpaperCheck(context)
+        }
+    }
+
+    private fun schedulePeriodicWallpaperCheck(context: Context) {
+        val workRequest =
+            androidx.work.PeriodicWorkRequestBuilder<com.sameerasw.essentials.services.DailyWallpaperWorker>(
+                12, java.util.concurrent.TimeUnit.HOURS
+            ).build()
+
+        androidx.work.WorkManager.getInstance(context).enqueueUniquePeriodicWork(
+            "daily_wallpaper_check_work",
+            androidx.work.ExistingPeriodicWorkPolicy.UPDATE,
+            workRequest
+        )
+    }
+
+    private fun cancelPeriodicWallpaperCheck(context: Context) {
+        androidx.work.WorkManager.getInstance(context).cancelUniqueWork("daily_wallpaper_check_work")
     }
 }

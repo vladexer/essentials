@@ -10,6 +10,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
@@ -17,6 +18,7 @@ import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
@@ -49,8 +51,10 @@ fun WallpaperScreen(
     val wallpaperInfo by viewModel.dailyWallpaperInfo
     val isLoading by viewModel.isWallpaperLoading
     val isBlurEnabled by viewModel.isBlurEnabled
+    val isAutoUpdateEnabled by viewModel.isDailyWallpaperAutoUpdateEnabled
 
     var showHelpSheet by remember { mutableStateOf(false) }
+    var showSettingsCard by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
         viewModel.fetchTodayWallpaper(context)
@@ -182,39 +186,91 @@ fun WallpaperScreen(
                         .padding(bottom = 96.dp + bottomPadding)
                         .zIndex(2f)
                 ) {
-                    Button(
-                        onClick = {
-                            HapticUtil.performHeavyHaptic(view)
-                            wallpaperInfo?.urlMobile?.let { url ->
-                                viewModel.applyWallpaper(context, url) { success ->
-                                    if (!success) {
-                                        Toast.makeText(context, R.string.label_wallpaper_apply_failed, Toast.LENGTH_SHORT).show()
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        AnimatedVisibility(
+                            visible = showSettingsCard,
+                            enter = expandVertically(animationSpec = tween(300)) + fadeIn(animationSpec = tween(300)),
+                            exit = shrinkVertically(animationSpec = tween(300)) + fadeOut(animationSpec = tween(300))
+                        ) {
+                            Card(
+                                shape = RoundedCornerShape(16.dp),
+                                colors = CardDefaults.cardColors(
+                                    containerColor = MaterialTheme.colorScheme.surfaceContainerHigh.copy(alpha = 0.9f)
+                                ),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(bottom = 12.dp)
+                            ) {
+                                Row(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(16.dp),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.SpaceBetween
+                                ) {
+                                    Column(modifier = Modifier.weight(1f)) {
+                                        Text(
+                                            text = stringResource(R.string.label_wallpaper_auto_update),
+                                            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                                            color = MaterialTheme.colorScheme.onSurface
+                                        )
                                     }
+                                    Switch(
+                                        checked = isAutoUpdateEnabled,
+                                        onCheckedChange = { checked ->
+                                            HapticUtil.performUIHaptic(view)
+                                            viewModel.setDailyWallpaperAutoUpdate(checked, context)
+                                        }
+                                    )
                                 }
                             }
-                        },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(56.dp),
-                        shape = CircleShape,
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.primary,
-                            contentColor = MaterialTheme.colorScheme.onPrimary
-                        ),
-                        elevation = ButtonDefaults.buttonElevation(
-                            defaultElevation = 0.dp,
-                            pressedElevation = 0.dp
-                        )
-                    ) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.rounded_open_in_new_24),
-                            contentDescription = null,
-                            modifier = Modifier.size(22.dp)
-                        )
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text(
-                            text = stringResource(R.string.label_wallpaper_apply),
-                            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
+                        }
+
+                        SplitButtonLayout(
+                            leadingButton = {
+                                SplitButtonDefaults.LeadingButton(
+                                    onClick = {
+                                        HapticUtil.performHeavyHaptic(view)
+                                        wallpaperInfo?.urlMobile?.let { url ->
+                                            viewModel.applyWallpaper(context, url) { success ->
+                                                if (!success) {
+                                                    Toast.makeText(context, R.string.label_wallpaper_apply_failed, Toast.LENGTH_SHORT).show()
+                                                }
+                                            }
+                                        }
+                                    },
+                                    modifier = Modifier.height(56.dp)
+                                ) {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.rounded_open_in_new_24),
+                                        contentDescription = null,
+                                        modifier = Modifier.size(22.dp)
+                                    )
+                                    Spacer(modifier = Modifier.width(8.dp))
+                                    Text(
+                                        text = stringResource(R.string.label_wallpaper_apply),
+                                        style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
+                                    )
+                                }
+                            },
+                            trailingButton = {
+                                SplitButtonDefaults.TrailingButton(
+                                    onClick = {
+                                        HapticUtil.performUIHaptic(view)
+                                        showSettingsCard = !showSettingsCard
+                                    },
+                                    modifier = Modifier.height(56.dp)
+                                ) {
+                                    Icon(
+                                        painter = painterResource(id = if (showSettingsCard) R.drawable.rounded_keyboard_arrow_down_24 else R.drawable.rounded_keyboard_arrow_up_24),
+                                        contentDescription = "Options",
+                                        modifier = Modifier.size(24.dp)
+                                    )
+                                }
+                            }
                         )
                     }
                 }
