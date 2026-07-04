@@ -809,7 +809,8 @@ object FeatureRegistry {
             parentFeatureId = "Display",
             description = R.string.feat_live_wallpaper_desc,
             aboutDescription = R.string.about_desc_live_wallpaper,
-            showToggle = false
+            showToggle = false,
+            isVisibleInMain = false
         ) {
             override fun isEnabled(viewModel: MainViewModel) = true
             override fun onToggle(viewModel: MainViewModel, context: Context, enabled: Boolean) {}

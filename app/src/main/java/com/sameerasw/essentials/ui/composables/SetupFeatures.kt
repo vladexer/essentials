@@ -1356,17 +1356,19 @@ private fun RecentSearchesSection(
                                 activity = context as FragmentActivity,
                                 feature = feature,
                                 action = {
-                                    context.startActivity(
-                                        Intent(
-                                            context,
-                                            FeatureSettingsActivity::class.java
-                                        ).apply {
+                                    val intent = if (targetFeatureKey == "LiveWallpaper" || targetFeatureKey == "Daily Wallpaper") {
+                                        Intent(context, com.sameerasw.essentials.ui.activities.WallpaperActivity::class.java).apply {
+                                            putExtra("tab", if (targetFeatureKey == "LiveWallpaper") "live" else "daily")
+                                        }
+                                    } else {
+                                        Intent(context, FeatureSettingsActivity::class.java).apply {
                                             putExtra("feature", targetFeatureKey)
                                             highlightKey?.let {
                                                 putExtra("highlight_setting", it)
                                             }
                                         }
-                                    )
+                                    }
+                                    context.startActivity(intent)
                                 }
                             )
                         }
@@ -1428,31 +1430,35 @@ private fun SearchResultsSection(
                                 activity = context as FragmentActivity,
                                 feature = feature,
                                 action = {
-                                    context.startActivity(
-                                        Intent(
-                                            context,
-                                            FeatureSettingsActivity::class.java
-                                        ).apply {
+                                    val intent = if (targetFeatureKey == "LiveWallpaper" || targetFeatureKey == "Daily Wallpaper") {
+                                        Intent(context, com.sameerasw.essentials.ui.activities.WallpaperActivity::class.java).apply {
+                                            putExtra("tab", if (targetFeatureKey == "LiveWallpaper") "live" else "daily")
+                                        }
+                                    } else {
+                                        Intent(context, FeatureSettingsActivity::class.java).apply {
                                             putExtra("feature", targetFeatureKey)
                                             highlightKey?.let {
                                                 putExtra("highlight_setting", it)
                                             }
                                         }
-                                    )
+                                    }
+                                    context.startActivity(intent)
                                 }
                             )
                         } else {
-                            context.startActivity(
-                                Intent(
-                                    context,
-                                    FeatureSettingsActivity::class.java
-                                ).apply {
+                            val intent = if (result.featureKey == "LiveWallpaper" || result.featureKey == "Daily Wallpaper") {
+                                Intent(context, com.sameerasw.essentials.ui.activities.WallpaperActivity::class.java).apply {
+                                    putExtra("tab", if (result.featureKey == "LiveWallpaper") "live" else "daily")
+                                }
+                            } else {
+                                Intent(context, FeatureSettingsActivity::class.java).apply {
                                     putExtra("feature", result.featureKey)
                                     result.targetSettingHighlightKey?.let {
                                         putExtra("highlight_setting", it)
                                     }
                                 }
-                            )
+                            }
+                            context.startActivity(intent)
                         }
                     },
                     iconRes = result.icon ?: R.drawable.rounded_settings_24,
