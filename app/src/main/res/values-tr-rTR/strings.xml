@@ -1538,9 +1538,9 @@
     <string name="pixel_searchbar_settings_title">Pixel Arama Çubuğu Özelleştirme</string>
     <string name="pixel_searchbar_style_empty">Boş</string>
     <string name="pixel_searchbar_style_date">Tarih</string>
-    <string name="pixel_searchbar_background_pill_title">Background pill</string>
-    <string name="pixel_searchbar_background_pill_desc">Show the date inside a container</string>
-    <string name="about_desc_pixel_searchbar">Replace the default Pixel Launcher search bar on your home screen. You can customize the content to show either nothing (Empty) or the current date. \n\nPlease note that enabling this may break Pixel Launcher At a Glance widgets (such as sports and finance widgets). \n\nAnd the setting may need to be applied multiple times to take effect.</string>
+    <string name="pixel_searchbar_background_pill_title">Arka plan hapı</string>
+    <string name="pixel_searchbar_background_pill_desc">Tarihi bir kutunun içinde gösterin</string>
+    <string name="about_desc_pixel_searchbar">Ana ekranınızdaki varsayılan Pixel Launcher arama çubuğunu değiştirin. İçeriği, hiçbir şey (Boş) veya geçerli tarih gösterecek şekilde özelleştirebilirsiniz.\n\nLütfen bu özelliği etkinleştirmenin Pixel Launcher\'ın Bir Bakışta widget\'larını (spor ve finans widget\'ları gibi) bozabileceğini unutmayın. \n\nVe ayarın etkili olması için birden fazla kez uygulanması gerekebilir.</string>
     <string name="label_replace_with">İle değiştirin</string>
     <string name="pixel_searchbar_tap_action_title">Dokunma eylemini yapılandırın</string>
     <string name="pixel_searchbar_tap_action_desc">Dokunulduğunda tetiklenecek eylemleri DIY otomasyonlarında ayarlayın</string>
