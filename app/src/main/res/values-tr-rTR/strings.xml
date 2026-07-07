@@ -103,6 +103,8 @@
     <string name="flashlight_always_off_desc">Ekran açıkken bile</string>
     <string name="flashlight_pocket_title">Cep tespiti</string>
     <string name="flashlight_pocket_desc">Telefon cebinizdeyken el fenerini kapatın</string>
+    <string name="flashlight_overheat_title">Overheating prevention</string>
+    <string name="flashlight_overheat_desc">Lower brightness on longer period of use</string>
     <string name="content_desc_settings">Ayarlar</string>
     <!-- Caffeinate / Permissions -->
     <string name="permission_show_notification_title">Bildirimi Göster</string>
@@ -651,6 +653,7 @@
     <string name="perm_action_how_to">Nasıl verilir</string>
     <string name="perm_action_granted">Verildi</string>
     <string name="perm_action_grant_shizuku">Shizuku kullanarak izin ver</string>
+    <string name="perm_action_grant_root">Grant using Root</string>
     <string name="perm_write_secure_instructions">Bu izin, ADB kullanarak bir bilgisayar üzerinden verilebilir. ADB komutunu kopyalayın ve kabukta çalıştırın.\n\nYa da aşağıdaki butonu kullanarak Shizuku kullanarak kolayca izin verebilirsiniz.\n\nBu iznin yalnızca bir kez verilmesi yeterlidir.</string>
     <string name="perm_battery_optimization_title">Pil Optimizasyonu</string>
     <string name="perm_battery_optimization_desc">Güç tasarrufu sağlamak için hizmetin sistem tarafından sonlandırılmadığından emin olun.</string>
@@ -1401,6 +1404,7 @@
     <string name="refresh_rate_system_default">Sistem</string>
     <string name="refresh_rate_reset_desc">Özel ayarı kaldırır ve sistemin varsayılan yenileme davranışına geri döner</string>
     <string name="msg_refresh_rate_permission_required">Yenileme hızını ayarlamak için Shizuku izni gereklidir</string>
+    <string name="msg_refresh_rate_root_permission_required">Root permission required to adjust refresh rate</string>
     <string name="search_refresh_rate_mode_title">Yenileme Hızı Modu</string>
     <string name="search_refresh_rate_mode_desc">Sabit ve aralıklı yenileme hızı kontrolü arasında geçiş yapın</string>
     <string name="search_refresh_rate_fixed_title">Sabit Yenileme Hızı</string>
