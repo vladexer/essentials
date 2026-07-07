@@ -332,6 +332,8 @@ class MainViewModel : ViewModel() {
     private var workflowPollingJob: kotlinx.coroutines.Job? = null
     val gitHubUser = mutableStateOf<com.sameerasw.essentials.domain.model.github.GitHubUser?>(null)
 
+    val isKeepPrefs = mutableStateOf(false)
+
     private val contentObserver = object : ContentObserver(Handler(Looper.getMainLooper())) {
         override fun onChange(selfChange: Boolean, uri: Uri?) {
             uri?.let {
@@ -1498,6 +1500,8 @@ class MainViewModel : ViewModel() {
         if (isBatteryNotificationEnabled.value) {
             startBatteryNotificationService(context)
         }
+
+        isKeepPrefs.value = settingsRepository.getBoolean(SettingsRepository.KEY_KEEP_PREFS)
     }
 
     private fun startBatteryNotificationService(context: Context) {
@@ -3935,7 +3939,7 @@ class MainViewModel : ViewModel() {
     }
 
     fun importConfigs(context: Context, inputStream: java.io.InputStream): Boolean {
-        val success = settingsRepository.importConfigs(inputStream)
+        val success = settingsRepository.importConfigs(inputStream, isKeepPrefs.value)
         if (success) {
             settingsRepository.syncSystemSettingsWithSaved()
             com.sameerasw.essentials.domain.diy.DIYRepository.reloadAutomations()
@@ -4301,5 +4305,10 @@ class MainViewModel : ViewModel() {
             dailyWallpaperAutoUpdateTime.value = null
             settingsRepository.remove(SettingsRepository.KEY_DAILY_WALLPAPER_AUTO_UPDATE_TIME)
         }
+    }
+
+    fun toggleKeepPrefs(enabled: Boolean) {
+        isKeepPrefs.value = enabled
+        settingsRepository.putBoolean(SettingsRepository.KEY_KEEP_PREFS, enabled)
     }
 }

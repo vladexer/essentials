@@ -288,6 +288,7 @@ class SettingsRepository(private val context: Context) {
         const val KEY_POCKET_MODE_EXCLUDED_APPS = "pocket_mode_excluded_apps"
         const val KEY_POCKET_MODE_TRIGGER_DELAY = "pocket_mode_trigger_delay"
         const val KEY_POCKET_MODE_LOCK_SCREEN_ONLY = "pocket_mode_lock_screen_only"
+        const val KEY_KEEP_PREFS = "keep_prefs"
     }
 
     // Observe changes
@@ -769,7 +770,7 @@ class SettingsRepository(private val context: Context) {
         }
     }
 
-    fun importConfigs(inputStream: java.io.InputStream): Boolean {
+    fun importConfigs(inputStream: java.io.InputStream, keepPrefs: Boolean): Boolean {
         return try {
             val json = inputStream.bufferedReader().use { it.readText() }
             val allConfigs: Map<String, Map<String, Map<String, Any>>> =
@@ -797,7 +798,7 @@ class SettingsRepository(private val context: Context) {
                 }
 
                 p.edit().apply {
-                    clear()
+                    if(!keepPrefs) clear()
                     
                     // Restore preserved values
                     preservedValues.forEach { (key, value) ->
