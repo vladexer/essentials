@@ -6,7 +6,7 @@ on:
   issues:
     types: [opened, closed]
   pull_request_target:
-    types: [opened, closed, reopened, synchronize]
+    types: [opened, closed, reopened]
   workflow_dispatch:
 
 jobs:
@@ -56,20 +56,22 @@ jobs:
           elif [[ "$EVENT" == "issues" ]]; then
             ACTION="${{ github.event.action }}"
             STATUS=$([[ "$ACTION" == "opened" ]] && echo "🟢 NEW ISSUE" || echo "🔴 CLOSED ISSUE")
+            SENDER="${{ github.event.sender.login }}"
             {
               echo "full_message<<EOF"
               echo "<b>$STATUS: $REPO</b>"
-              echo "<a href='${{ github.event.issue.html_url }}'>Issue: ${{ github.event.issue.title }}</a>"
+              echo "<a href='${{ github.event.issue.html_url }}'>Issue: ${{ github.event.issue.title }}</a> by @$SENDER"
               echo "EOF"
             } >> "$GITHUB_OUTPUT"
 
           elif [[ "$EVENT" == "pull_request" || "$EVENT" == "pull_request_target" ]]; then
             ACTION="${{ github.event.action }}"
             [[ "$ACTION" == "closed" && "${{ github.event.pull_request.merged }}" == "true" ]] && STATUS="💜 MERGED PR" || STATUS="🔵 PR $ACTION"
+            SENDER="${{ github.event.sender.login }}"
             {
               echo "full_message<<EOF"
               echo "<b>$STATUS: $REPO</b>"
-              echo "<a href='${{ github.event.pull_request.html_url }}'>PR: ${{ github.event.pull_request.title }}</a>"
+              echo "<a href='${{ github.event.pull_request.html_url }}'>PR: ${{ github.event.pull_request.title }}</a> by @$SENDER"
               echo "EOF"
             } >> "$GITHUB_OUTPUT"
           fi
