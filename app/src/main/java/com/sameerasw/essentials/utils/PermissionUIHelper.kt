@@ -55,11 +55,17 @@ object PermissionUIHelper {
                     viewModel.check(context)
                 },
                 isGranted = viewModel.isWriteSecureSettingsEnabled.value,
-                shizukuActionLabel = R.string.perm_action_grant_shizuku,
-                shizukuActionEnabled = ShizukuUtils.hasPermission(),
+                shizukuActionLabel = if (viewModel.isRootEnabled.value) R.string.perm_action_grant_root else R.string.perm_action_grant_shizuku,
+                shizukuActionEnabled = if (viewModel.isRootEnabled.value) viewModel.isRootAvailable.value else ShizukuUtils.hasPermission(),
                 shizukuAction = {
-                    if (ShizukuUtils.grantWriteSecureSettingsPermission()) {
-                        viewModel.check(context)
+                    if (viewModel.isRootEnabled.value) {
+                        if (RootUtils.runCommand("pm grant ${context.packageName} android.permission.WRITE_SECURE_SETTINGS")) {
+                            viewModel.check(context)
+                        }
+                    } else {
+                        if (ShizukuUtils.grantWriteSecureSettingsPermission()) {
+                            viewModel.check(context)
+                        }
                     }
                 },
                 instructions = R.string.perm_write_secure_instructions
