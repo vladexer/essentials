@@ -96,6 +96,7 @@ import com.sameerasw.essentials.ui.components.sheets.UpdateBottomSheet
 import com.sameerasw.essentials.ui.modifiers.BlurDirection
 import com.sameerasw.essentials.ui.modifiers.progressiveBlur
 import com.sameerasw.essentials.ui.theme.EssentialsTheme
+import com.sameerasw.essentials.ui.theme.Shapes
 import com.sameerasw.essentials.utils.DeviceUtils
 import com.sameerasw.essentials.utils.HapticUtil
 import com.sameerasw.essentials.utils.PermissionUtils
@@ -952,11 +953,20 @@ fun SettingsContent(
             )
 
             RoundedCardContainer {
+                IconToggleItem(
+                    iconRes = R.drawable.rounded_front_hand_24,
+                    title = "Keep new settings",
+                    description = "Don't reset existing settings after import",
+                    isChecked = viewModel.isKeepPrefs.value,
+                    onCheckedChange = { viewModel.toggleKeepPrefs(it) }
+                )
+
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(
-                            color = MaterialTheme.colorScheme.surfaceBright
+                            color = MaterialTheme.colorScheme.surfaceBright,
+                            shape = Shapes.extraSmall
                         )
                         .padding(16.dp),
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
@@ -987,7 +997,8 @@ fun SettingsContent(
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(
-                            color = MaterialTheme.colorScheme.surfaceBright
+                            color = MaterialTheme.colorScheme.surfaceBright,
+                            shape = Shapes.extraSmall
                         )
                         .padding(16.dp),
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
@@ -1026,7 +1037,8 @@ fun SettingsContent(
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(
-                            color = MaterialTheme.colorScheme.surfaceBright
+                            color = MaterialTheme.colorScheme.surfaceBright,
+                            shape = Shapes.extraSmall
                         )
                         .padding(start = 12.dp, end = 12.dp, top = 4.dp, bottom = 12.dp),
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
